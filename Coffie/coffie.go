@@ -1,18 +1,18 @@
-package coffie
+package coffee
 
 import "sync"
 
-//Coffieer interface for methods
-type Coffieer interface {
-	Add(Coffie)
-	AddReview(Coffie)
-	List() []Coffie
-	ListReview() []Coffie
+//Coffeer interface for methods
+type Coffeer interface {
+	Add(Coffe)
+	AddReview(Coffe)
+	List() []Coffe
+	ListReview() []Coffe
 	GetAmberName() string
 }
 
-//Coffie strore all coffie property for single one
-type Coffie struct {
+//Coffe strore all coffee property for single one
+type Coffe struct {
 	Name           string
 	ProductName    string
 	ProductDate    string
@@ -20,13 +20,13 @@ type Coffie struct {
 	Rate           int
 }
 
-//Amber for a customer see all coffie
+//Amber for a customer see all coffee
 type amber struct {
 	Name           string
 	Quantity       int
-	coffieList       []Coffie
-	coffieReviewList []Coffie
-	defaultBarista Coffieer
+	coffeeList       []Coffe
+	coffeeReviewList []Coffe
+	defaultBarista Coffeer
 }
 type barista struct {
 }
@@ -38,7 +38,7 @@ func SetAmberName(s string) {
 }
 
 //SetBarista hiring to the new barista :D
-func SetBarista(e Coffieer) {
+func SetBarista(e Coffeer) {
 	item := globals()
 	item.defaultBarista = e
 }
@@ -49,7 +49,7 @@ var (
 )
 
 func newDefaultAmber() amber {
-	return amber{Name: "Kardesler", Quantity: 0, coffieList: []Coffie{}, defaultBarista: &barista{}}
+	return amber{Name: "Kardesler", Quantity: 0, coffeeList: []Coffe{}, defaultBarista: &barista{}}
 }
 func globals() *amber {
 	mu.RLock()
@@ -57,26 +57,26 @@ func globals() *amber {
 	return &ambr
 }
 
-var _ Coffieer = (*barista)(nil)
+var _ Coffeer = (*barista)(nil)
 
-func (br *barista) Add(b Coffie) {
+func (br *barista) Add(b Coffe) {
 	item := globals()
-	item.coffieList = append(ambr.coffieList, b)
+	item.coffeeList = append(ambr.coffeeList, b)
 }
-func (br *barista) AddReview(b Coffie) {
+func (br *barista) AddReview(b Coffe) {
 	item := globals()
-	item.coffieReviewList = append(item.coffieReviewList, b)
+	item.coffeeReviewList = append(item.coffeeReviewList, b)
 }
-func (br *barista) List() []Coffie {
+func (br *barista) List() []Coffe {
 	item := globals()
-	clone := make([]Coffie, len(item.coffieList))
-	copy(clone, item.coffieList)
+	clone := make([]Coffe, len(item.coffeeList))
+	copy(clone, item.coffeeList)
 	return clone
 }
-func (br *barista) ListReview() []Coffie {
+func (br *barista) ListReview() []Coffe {
 	item := globals()
-	clone := make([]Coffie, len(item.coffieReviewList))
-	copy(clone, item.coffieReviewList)
+	clone := make([]Coffe, len(item.coffeeReviewList))
+	copy(clone, item.coffeeReviewList)
 	return clone
 }
 func (br *barista) GetAmberName() string {

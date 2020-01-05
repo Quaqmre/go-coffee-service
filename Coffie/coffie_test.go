@@ -1,21 +1,21 @@
-package coffie
+package coffee
 
 import "testing"
 
 func TestAmberName(t *testing.T) {
 	item := globals()
-	item.defaultBarista = &mockCoffie{}
+	item.defaultBarista = &mockCoffe{}
 	SetAmberName("asd")
 	if item.Name != "asd" {
 		t.Error("SetAmberName goes wrong")
 	}
 }
 func TestSetBarista(t *testing.T) {
-	mockedBarista := &mockCoffie{}
+	mockedBarista := &mockCoffe{}
 	SetBarista(mockedBarista)
 
 	item := globals()
-	item.defaultBarista.Add(Coffie{})
+	item.defaultBarista.Add(Coffe{})
 
 	if !mockedBarista.added {
 		t.Error("doest setted barista with mock")
@@ -23,29 +23,29 @@ func TestSetBarista(t *testing.T) {
 
 }
 
-type mockCoffie struct {
+type mockCoffe struct {
 	added       bool
 	addedReview bool
 	listed      bool
 }
 
-var _ Coffieer = (*mockCoffie)(nil)
+var _ Coffeer = (*mockCoffe)(nil)
 
-func (m *mockCoffie) Add(b Coffie) {
+func (m *mockCoffe) Add(b Coffe) {
 	m.added = true
 }
-func (m *mockCoffie) AddReview(b Coffie) {
+func (m *mockCoffe) AddReview(b Coffe) {
 	m.addedReview = true
 }
-func (m *mockCoffie) List() []Coffie {
+func (m *mockCoffe) List() []Coffe {
 	m.listed = true
 	return nil
 }
-func (m *mockCoffie) ListReview() []Coffie {
+func (m *mockCoffe) ListReview() []Coffe {
 	m.listed = true
 	return nil
 }
-func (m *mockCoffie) GetAmberName() string {
+func (m *mockCoffe) GetAmberName() string {
 	item := globals()
 	return item.Name
 }
